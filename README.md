@@ -31,4 +31,28 @@ Transcriptome and chromatin accessibility landscapes across 25 distinct human br
 expand the susceptibility gene set for neuropsychiatric disorders. BioRxiv, 
 2022.09.02.506419. https://doi.org/10.1101/2022.09.02.506419
 
+#################################   Attention    ###################################
+
+before running any of the scripts place the file mlblabs.mpltstyles that is in the MLB Code folder in the following directory:
+
+C:\Users\user\anaconda3\Lib\site-packages\matplotlib\mpl-data\stylelib\mlblabs.mplstyle
+
+##########################################################################
+
+This folder contains the following folders:
+
+	Data Original which contains the original files of the RNA seq data provided by Sofia Agostinho
+	
+	Data classification which contains the files obtained after executing the Data preparation script on the files contained in Data Sofia
+	
+	Code MLB which contains scripts for obtaining multiple line charts and confuse matrixes for each classifier
+
+and the following scripts:
+
+	the performance.py script where the functions for the execution of cross validations and the construction of the report graphics are defined
+	
+	one for each classifier to obtain the performance scores and confusion matrix for all datasets
+	
+	one for SVM, KNN and DT to analyze and rank each set of parameters
+
 _Final Grade_ : 19/20
