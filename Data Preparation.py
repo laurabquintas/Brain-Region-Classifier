@@ -17,22 +17,22 @@ from sklearn.feature_selection import VarianceThreshold
 # View the working directory
 print(os.getcwd())
 
-# View the files given by Sofia
-print(os.listdir('Data Sofia'))
+# View the files given by Sofia from papers
+print(os.listdir('Data Original'))
 # ['GSE211792_logCPM.csv', 'GSE211792_logCPM_cent.csv', 'GSE211792_readcount_matrix.txt', 'raw_AAB.csv']
 
-# Load the data from Sofia
-df_raw = pd.read_table('Data Sofia\\GSE211792_readcount_matrix.txt')
-df_raw_filtered = pd.read_csv('Data Sofia\\raw_AAB.csv')
-df_logCPM = pd.read_csv('Data Sofia\\GSE211792_logCPM.csv')
-df_logCPM_cent = pd.read_csv('Data Sofia\\GSE211792_logCPM_cent.csv')
+# Load the data 
+df_raw = pd.read_table('Data Original\\GSE211792_readcount_matrix.txt')
+df_raw_filtered = pd.read_csv('Data Original\\raw_AAB.csv')
+df_logCPM = pd.read_csv('Data Original\\GSE211792_logCPM.csv')
+df_logCPM_cent = pd.read_csv('Data Original\\GSE211792_logCPM_cent.csv')
 
 # Check the shape of the dataframes to assert the order of their creation
 # Can be seen in the variable explorer panel as well
 print('%s\n %s\n %s\n %s\n' % (df_raw.shape, df_raw_filtered.shape, df_logCPM.shape, df_logCPM_cent.shape))
 
 
-def structurize(df: pd.DataFrame()):
+def structurize(df):
     # transpose the df
     df = df.T 
     # set columns names as gene IDs
@@ -156,7 +156,7 @@ print('Min_Var, Max_var\n %s, %s\n %s, %s\n %s, %s\n' % (
 # Deletes variables with variance < threshold
 # Regarding thresholds of variance, i tried to find values for our type of data in articles
 # But i was unsuccessfull. Did not find any
-def FS(df: pd.DataFrame(), thresh: float):
+def FS(df, thresh: float):
     initvars = df.shape[1]-1
     numeric_vars = list(df.columns[:-1])
     df_nr = df[numeric_vars]
