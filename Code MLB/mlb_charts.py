@@ -1,3 +1,4 @@
+## Based on material provided by Prof. Cláudia Antunes on https://web.ist.utl.pt/~claudia.antunes/DSLabs/config/
 import math
 from itertools import product
 import matplotlib.pyplot as plt

@@ -1,3 +1,4 @@
+## Based on material provided by Prof. Cláudia Antunes on https://web.ist.utl.pt/~claudia.antunes/DSLabs/config/
 import matplotlib.pyplot as plt
 import matplotlib.colors as clrs
 

@@ -5,7 +5,7 @@ Script that uses the data for classification, using KNN (k-nearest neighbour)
 """
 
 # Modules to use
-from performance import *
+from ..performance import *
 import numpy as np
 import os
 import pandas as pd

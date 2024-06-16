@@ -9,7 +9,7 @@ import os
 from sklearn.neural_network import MLPClassifier
 import pandas as pd
 import sys
-sys.path.append('Code MLB')
+sys.path.append('../Code MLB')
 from ..performance import *
 from sklearn.model_selection import StratifiedShuffleSplit, cross_validate
 ### PARAMETERS OF MLP CLASSIFIER CONSIDERED ###
