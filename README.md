@@ -43,7 +43,7 @@ This project uses the following folders:
 
 - Data Sofia which contains the original files of the RNA seq data provided by Sofia Agostinho (https://drive.google.com/drive/folders/1fRamU0TPYpsXJ0sy3RPsnxNNeROhOMif?usp=sharing)
 - Data classification which contains the files obtained after executing the Data preparation script on the files contained in Data Sofia (https://drive.google.com/drive/folders/10PnGUiTsRo8V7TpiiXkZqfoCdFkmzNSh?usp=sharing)
-- Code MLB which contains scripts for obtaining multiple line charts and confuse matrixes for each classifier
+- Code MLB which contains scripts for obtaining multiple line charts and confuse matrixes for each classifier (Based on https://web.ist.utl.pt/~claudia.antunes/DSLabs/config/)
 
 and the following scripts:
 
