@@ -22,7 +22,7 @@ from sklearn import svm
 import matplotlib.pyplot as plt
 from statistics import mean
 from performance import *
-
+from sklearn.model_selection import StratifiedShuffleSplit, cross_validate
 
 ### PARAMETERS OF DECISION TREES CLASSIFIER CONSIDERED ###
 # kernell = 'rgd' (used in the article)
