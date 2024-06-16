@@ -25,6 +25,8 @@ Analyses of Single-Cell Transcriptomes from Multiple Brain Organoids and Fetal B
 Reports, Volume 30, Issue 6, 2020, Pages 1682-1689.e3, ISSN 2211-1247, 
 https://doi.org/10.1016/j.celrep.2020.01.038.
 
+_Final Grade_ : 19/20
+
 **3 -** Dong, P., Bendl, J., Misir, R., Shao, Z., Edelstien, J., Davis, D. A., Haroutunian, V., Scott, 
 W. K., Acker, S., Lawless, N., Hoffman, G. E., Fullard, J. F., & Roussos, P. (2022). 
 Transcriptome and chromatin accessibility landscapes across 25 distinct human brain regions 
