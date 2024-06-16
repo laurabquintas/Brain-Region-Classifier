@@ -22,7 +22,7 @@ from mlb_charts import  multiple_line_chart
 from sklearn.tree import DecisionTreeClassifier
 from statistics import mean
 import matplotlib.pyplot as plt
-from performance import *
+from ..performance import *
 
 
 ### PARAMETERS OF DECISION TREES CLASSIFIER CONSIDERED ###
