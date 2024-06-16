@@ -49,7 +49,7 @@ This project uses the following folders:
 and the following scripts:
 
 - the performance.py script where the functions for the execution of cross validations and the construction of the report graphics are defined
-- one for each classifier to obtain the performance scores and confusion matrix for all datasets
-- one for SVM, KNN and DT to analyze and rank each set of parameters
+- one for each classifier to obtain the performance scores and confusion matrix for all datasets which are organized in the Folders with the algorithms name
+- one for SVM, KNN and DT to analyze and rank each set of parameters in the Folders with the algorithms name
 
 _Final Grade_ : 19/20
