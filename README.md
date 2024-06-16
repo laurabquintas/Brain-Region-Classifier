@@ -41,18 +41,14 @@ C:\Users\user\anaconda3\Lib\site-packages\matplotlib\mpl-data\stylelib\mlblabs.m
 
 This folder contains the following folders:
 
-	Data Original which contains the original files of the RNA seq data provided by Sofia Agostinho
-	
-	Data classification which contains the files obtained after executing the Data preparation script on the files contained in Data Sofia
-	
-	Code MLB which contains scripts for obtaining multiple line charts and confuse matrixes for each classifier
+- Data Original which contains the original files of the RNA seq data provided by Sofia Agostinho
+- Data classification which contains the files obtained after executing the Data preparation script on the files contained in Data Sofia
+- Code MLB which contains scripts for obtaining multiple line charts and confuse matrixes for each classifier
 
 and the following scripts:
 
-	the performance.py script where the functions for the execution of cross validations and the construction of the report graphics are defined
-	
-	one for each classifier to obtain the performance scores and confusion matrix for all datasets
-	
-	one for SVM, KNN and DT to analyze and rank each set of parameters
+- the performance.py script where the functions for the execution of cross validations and the construction of the report graphics are defined
+- one for each classifier to obtain the performance scores and confusion matrix for all datasets
+- one for SVM, KNN and DT to analyze and rank each set of parameters
 
 _Final Grade_ : 19/20
