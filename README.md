@@ -1,55 +1,121 @@
-# Gene expression data for brain region classification
-## Machine Learning in Bioengineering 2022/2023
-**Introduction**
+# Brain Region Classifier
 
-Human brain organoids are powerful tools, not only to study normal brain development, but 
-also to gain knowledge on neurological diseases. However, a key aspect for these studies is 
-the precise determination of cellular maturity and regional identity. Brain region identification 
-based solely on a few expression markers, although useful and generally inexpensive, does
-not fully capture the complete range of gene expression patterns that may be presented by
-the organoids In fact, distinct differentiation trajectories across protocols have been identified [1], 
-posing the need to a more efficient and complete characterization of developing organoids.
-Machine learning approaches have already been applied to study different aspects of brain 
-organoids culture and development [2]. In the future, ML models may be used to rapidly classify 
-organoids into brain regions and maturity stages. In this work a primary study on brain region classification will be done using a transcriptomic 
-data from adult brain samples.
+Multiclass classification of human brain regions from bulk RNA-seq transcriptomic data. Four machine learning models (KNN, SVM, Decision Tree, MLP) are benchmarked across multiple normalization and feature-selection pipelines to identify the most robust approach for mapping gene expression profiles to one of four macro-regions: **Forebrain**, **Basal Ganglia**, **Midbrain**, and **Hindbrain**.
 
-**References:**
+## Motivation
 
-**1 -** Honghui Zheng, Yilin Feng, Jiyuan Tang, Shaohua Ma, Interfacing brain organoids with 
-precision medicine and machine learning, Cell Reports Physical Science, Volume 3, Issue 7, 
-2022, 100974, ISSN 2666-3864, https://doi.org/10.1016/j.xcrp.2022.100974.
+Accurate identification of brain regional identity from gene expression is critical for validating brain organoid models and studying neurological disease. Traditional approaches rely on a handful of marker genes, which fail to capture the full transcriptomic landscape. This project explores whether standard ML classifiers, trained on genome-wide expression data from 25 sub-regions across 265 adult brain samples, can reliably distinguish macro-regions — a necessary step toward automated organoid characterization.
 
-**2 -** Yoshiaki Tanaka, Bilal Cakir, Yangfei Xiang, Gareth J. Sullivan, In-Hyun Park, Synthetic 
-Analyses of Single-Cell Transcriptomes from Multiple Brain Organoids and Fetal Brain, Cell 
-Reports, Volume 30, Issue 6, 2020, Pages 1682-1689.e3, ISSN 2211-1247, 
-https://doi.org/10.1016/j.celrep.2020.01.038.
+## Dataset
 
-**3 -** Dong, P., Bendl, J., Misir, R., Shao, Z., Edelstien, J., Davis, D. A., Haroutunian, V., Scott, 
-W. K., Acker, S., Lawless, N., Hoffman, G. E., Fullard, J. F., & Roussos, P. (2022). 
-Transcriptome and chromatin accessibility landscapes across 25 distinct human brain regions 
-expand the susceptibility gene set for neuropsychiatric disorders. BioRxiv, 
-2022.09.02.506419. https://doi.org/10.1101/2022.09.02.506419
+The data originates from bulk RNA-seq profiling of 25 anatomically distinct human brain sub-regions ([Dong et al., 2022](https://doi.org/10.1101/2022.09.02.506419)). Each of the 265 samples is labeled with one of four macro-regions based on neuroanatomical grouping:
 
-#################################   Attention    ###################################
+| Macro-Region | Sub-Regions |
+|---|---|
+| Forebrain | PVC, PAC, EC, PMC, VLPFC, PSC, OFC, PVPC, AMY, DLPFC, PSTC, HIPP, ITC, ACC, INS |
+| Basal Ganglia | NAC, CN, GP |
+| Midbrain | ARC, MDT, RMTG, VTA, DRN, HAB |
+| Hindbrain | CRBLM |
 
-before running any of the scripts place the file mlblabs.mpltstyles that is in the MLB Code folder in the following directory:
+### Preprocessing Pipelines
 
-C:\Users\user\anaconda3\Lib\site-packages\matplotlib\mpl-data\stylelib\mlblabs.mplstyle
+Eight dataset variants are generated from the raw counts to evaluate the impact of normalization and dimensionality reduction:
 
-##########################################################################
+| Dataset | Description |
+|---|---|
+| `data_raw` | Raw read counts |
+| `data_raw_filtered` | Filtered raw counts (low-expression genes removed) |
+| `data_raw_filtered_FS` | Filtered + variance-based feature selection |
+| `data_logCPM` | Log-CPM normalized |
+| `data_logCPM_centered` | Log-CPM, mean-centered |
+| `data_logCPM_zscore` | Log-CPM, z-score standardized |
+| `data_logCPM_FS` | Log-CPM + feature selection |
+| `data_logCPM_centered_FS` | Log-CPM centered + feature selection |
 
-This project uses the following folders:
+Feature selection uses `VarianceThreshold`, retaining features that explain >20% of the maximum observed variance (threshold adapted per normalization scheme due to differing value ranges).
 
-- Data Sofia which contains the original files of the RNA seq data provided by Sofia Agostinho (https://drive.google.com/drive/folders/1fRamU0TPYpsXJ0sy3RPsnxNNeROhOMif?usp=sharing)
-- Data classification which contains the files obtained after executing the Data preparation script on the files contained in Data Sofia (https://drive.google.com/drive/folders/10PnGUiTsRo8V7TpiiXkZqfoCdFkmzNSh?usp=sharing)
-- Code MLB which contains scripts for obtaining multiple line charts and confuse matrixes for each classifier (Based on https://web.ist.utl.pt/~claudia.antunes/DSLabs/config/)
-- Final Report which includes the report, titled "MLB_Report," that is presented in article format and includes all the algorithms, analyses, and results.
+## Methods
 
-and the following scripts:
+All classifiers are evaluated with **10-fold stratified shuffle split** (70/30 train/test) and scored on weighted **accuracy, precision, recall, and F1-score**.
 
-- the performance.py script where the functions for the execution of cross validations and the construction of the report graphics are defined
-- one for each classifier to obtain the performance scores and confusion matrix for all datasets which are organized in the Folders with the algorithms name
-- one for SVM, KNN and DT to analyze and rank each set of parameters in the Folders with the algorithms name
+| Model | Key Hyperparameters |
+|---|---|
+| **K-Nearest Neighbors** | k = 1-30 (grid search), uniform weights, Euclidean distance |
+| **Support Vector Machine** | RBF kernel, C in {0.1, 1, 10, 100}, gamma in {0.01, 0.001, 0.0001, 0.00001} |
+| **Decision Tree** | criterion in {gini, entropy}, max_depth = 3, min_impurity_decrease in {0.001, 0.0005, 0.0025} |
+| **Multi-Layer Perceptron** | ReLU activation, Adam solver, lr = 0.01, 500 max iterations |
 
-_Final Grade_ : 19/20
+Hyperparameter ranking is performed by averaging test-set metrics across all eight datasets and ranking parameter sets per dataset.
+
+## Project Structure
+
+```
+.
+├── data_preparation.py          # Raw data -> structured CSVs with normalization & feature selection
+├── evaluation.py                # Cross-validation loop and performance visualization
+├── models/
+│   ├── knn.py                   # KNN classifier evaluation
+│   ├── knn_compare_k.py         # K-value comparison across datasets
+│   ├── mlp.py                   # MLP classifier evaluation
+│   ├── decision_tree.py         # Decision Tree classifier evaluation
+│   ├── decision_tree_rank.py    # DT hyperparameter ranking
+│   ├── svm.py                   # SVM classifier evaluation
+│   └── svm_rank.py              # SVM hyperparameter ranking
+├── utils/
+│   ├── config.py                # Matplotlib theme and color palette
+│   ├── charts.py                # Plotting utilities (bar charts, confusion matrices, ROC curves)
+│   └── mlblabs.mplstyle         # Custom matplotlib stylesheet
+├── requirements.txt
+└── README.md
+```
+
+## Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/laurabquintas/Brain-Region-Classifier.git
+cd Brain-Region-Classifier
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Install the custom matplotlib style
+cp utils/mlblabs.mplstyle "$(python -c 'import matplotlib; print(matplotlib.get_data_path())')/stylelib/"
+```
+
+### Data
+
+The processed datasets are available on [Google Drive](https://drive.google.com/drive/folders/10PnGUiTsRo8V7TpiiXkZqfoCdFkmzNSh?usp=sharing). Download and place the CSV files in a `data/` directory at the project root.
+
+To regenerate from the original RNA-seq files ([source](https://drive.google.com/drive/folders/1fRamU0TPYpsXJ0sy3RPsnxNNeROhOMif?usp=sharing)):
+
+```bash
+python data_preparation.py
+```
+
+## Usage
+
+Run any classifier against all dataset variants:
+
+```bash
+python -m models.knn           # K-Nearest Neighbors
+python -m models.svm           # Support Vector Machine
+python -m models.decision_tree # Decision Tree
+python -m models.mlp           # Multi-Layer Perceptron
+```
+
+Run hyperparameter analysis:
+
+```bash
+python -m models.knn_compare_k      # Compare k values for KNN
+python -m models.decision_tree_rank  # Rank DT hyperparameter sets
+python -m models.svm_rank            # Rank SVM hyperparameter sets
+```
+
+## References
+
+1. Zheng, H., Feng, Y., Tang, J., & Ma, S. (2022). Interfacing brain organoids with precision medicine and machine learning. *Cell Reports Physical Science*, 3(7), 100974. [doi:10.1016/j.xcrp.2022.100974](https://doi.org/10.1016/j.xcrp.2022.100974)
+
+2. Tanaka, Y., Cakir, B., Xiang, Y., Sullivan, G.J., & Park, I.H. (2020). Synthetic Analyses of Single-Cell Transcriptomes from Multiple Brain Organoids and Fetal Brain. *Cell Reports*, 30(6), 1682-1689.e3. [doi:10.1016/j.celrep.2020.01.038](https://doi.org/10.1016/j.celrep.2020.01.038)
+
+3. Dong, P., Bendl, J., Misir, R., et al. (2022). Transcriptome and chromatin accessibility landscapes across 25 distinct human brain regions expand the susceptibility gene set for neuropsychiatric disorders. *bioRxiv*. [doi:10.1101/2022.09.02.506419](https://doi.org/10.1101/2022.09.02.506419)
