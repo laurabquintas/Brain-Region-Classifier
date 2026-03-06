@@ -4,7 +4,7 @@ Multiclass classification of human brain regions from bulk RNA-seq transcriptomi
 
 ## Motivation
 
-Accurate identification of brain regional identity from gene expression is critical for validating brain organoid models and studying neurological disease. Traditional approaches rely on a handful of marker genes, which fail to capture the full transcriptomic landscape. This project explores whether standard ML classifiers, trained on genome-wide expression data from 25 sub-regions across 265 adult brain samples, can reliably distinguish macro-regions — a necessary step toward automated organoid characterization.
+Accurate identification of brain regional identity from gene expression is critical for validating brain organoid models and studying neurological disease. Traditional approaches rely on a handful of marker genes, which fail to capture the full transcriptomic landscape. This project explores whether standard ML classifiers, trained on genome-wide expression data from 25 sub-regions across 265 adult brain samples, can reliably distinguish macro-regions, a necessary step toward automated organoid characterization.
 
 ## Dataset
 
