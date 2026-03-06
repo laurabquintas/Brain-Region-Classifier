@@ -52,18 +52,17 @@ Hyperparameter ranking is performed by averaging test-set metrics across all eig
 ```
 .
 ├── data_preparation.py          # Raw data -> structured CSVs with normalization & feature selection
-├── evaluation.py                # Cross-validation loop and performance visualization
 ├── models/
-│   ├── knn.py                   # KNN classifier evaluation
-│   ├── knn_compare_k.py         # K-value comparison across datasets
-│   ├── mlp.py                   # MLP classifier evaluation
-│   ├── decision_tree.py         # Decision Tree classifier evaluation
+│   ├── knn.py                   # KNN evaluation across k=1..30
+│   ├── knn_compare_k.py         # Visualize optimal k per dataset
+│   ├── svm.py                   # SVM evaluation (best hyperparams)
+│   ├── svm_rank.py              # SVM hyperparameter ranking
+│   ├── decision_tree.py         # Decision Tree evaluation (best hyperparams)
 │   ├── decision_tree_rank.py    # DT hyperparameter ranking
-│   ├── svm.py                   # SVM classifier evaluation
-│   └── svm_rank.py              # SVM hyperparameter ranking
+│   └── mlp.py                   # MLP evaluation
 ├── utils/
-│   ├── config.py                # Matplotlib theme and color palette
-│   ├── charts.py                # Plotting utilities (bar charts, confusion matrices, ROC curves)
+│   ├── evaluation.py            # Cross-validation, metrics, shared dataset runner
+│   ├── plotting.py              # Matplotlib theme, bar charts, confusion matrices
 │   └── mlblabs.mplstyle         # Custom matplotlib stylesheet
 ├── requirements.txt
 └── README.md
